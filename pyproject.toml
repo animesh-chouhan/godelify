@@ -1,0 +1,19 @@
+[build-system]
+requires = ["setuptools>=42"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "godelify"
+version = "0.1.0"
+description = "Encode C source files as prime numbers"
+requires-python = ">=3.10"
+dependencies = [
+    "gmpy2>=2.3.0",
+    "sympy",
+]
+
+[project.optional-dependencies]
+dev = ["pytest"]
+
+[project.scripts]
+godelify = "godelify.cli:main"
