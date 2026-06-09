@@ -16,24 +16,35 @@ def main():
 
     dec = sub.add_parser("decode", help="Recover a C file from a prime number")
     dec.add_argument("prime", type=int, help="The prime number")
-    dec.add_argument("size", type=int, help="Encoded size in bytes (program_size_bytes from encode output)")
-    dec.add_argument("output", help="Output file path")
+    dec.add_argument("-o", "--output", default=None, help="Output file path (omit to print to stdout)")
+    dec.add_argument("--size", type=int, default=None, help="Encoded payload size in bytes (required only with --no-compress)")
     dec.add_argument("--no-compress", action="store_true", help="Disable decompression after decoding")
 
     args = parser.parse_args()
 
-    if args.command == "encode":
-        result = encode(args.file, compress=not args.no_compress)
-        print(f"Prime      : {result['prime']}")
-        print(f"Metadata   : {result['metadata']}")
-        print(f"Size (bytes): {result['program_size_bytes']}")
-        print(f"Compressed : {result['compressed']}")
+    try:
+        if args.command == "encode":
+            result = encode(args.file, compress=not args.no_compress)
+            print(f"Prime      : {result['prime']}")
+            print(f"Metadata   : {result['metadata']}")
+            print(f"Size (bytes): {result['program_size_bytes']}")
+            print(f"Compressed : {result['compressed']}")
 
-    elif args.command == "decode":
-        data = decode(args.prime, args.size, compressed=not args.no_compress)
-        with open(args.output, "wb") as f:
-            f.write(data)
-        print(f"Recovered {len(data)} bytes → {args.output}")
+        elif args.command == "decode":
+            data = decode(args.prime, args.size, compressed=not args.no_compress)
+            if args.output:
+                with open(args.output, "wb") as f:
+                    f.write(data)
+                print(f"Recovered {len(data)} bytes → {args.output}")
+            else:
+                sys.stdout.buffer.write(data)
+
+    except FileNotFoundError as e:
+        print(f"Error: {e}", file=sys.stderr)
+        sys.exit(1)
+    except (ValueError, RuntimeError) as e:
+        print(f"Error: {e}", file=sys.stderr)
+        sys.exit(1)
 
 
 if __name__ == "__main__":

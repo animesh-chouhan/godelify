@@ -6,7 +6,15 @@ build-backend = "setuptools.build_meta"
 name = "godelify"
 version = "0.1.0"
 description = "Encode C source files as prime numbers"
+readme = "README.md"
+license = "MIT"
+authors = [{ name = "Animesh Singh Chouhan", email = "animeshsingh38@gmail.com" }]
 requires-python = ">=3.10"
+keywords = ["prime", "godel", "encoding", "cryptography", "css", "decss"]
+classifiers = [
+    "Programming Language :: Python :: 3",
+    "Operating System :: OS Independent",
+]
 dependencies = [
     "gmpy2>=2.3.0",
     "sympy",
@@ -17,3 +25,10 @@ dev = ["pytest"]
 
 [project.scripts]
 godelify = "godelify.cli:main"
+
+[tool.setuptools.packages.find]
+include = ["godelify*"]
+
+[project.urls]
+Homepage = "https://github.com/animesh-chouhan/godelify"
+Repository = "https://github.com/animesh-chouhan/godelify"

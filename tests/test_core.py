@@ -42,7 +42,7 @@ def test_encode_compressed_size_smaller():
 def test_roundtrip(tmp_c_file):
     original = open(tmp_c_file, "rb").read()
     result = encode(tmp_c_file)
-    recovered = decode(result["prime"], result["program_size_bytes"])
+    recovered = decode(result["prime"])  # self-contained: no size needed when compressed
     assert recovered == original
 
 
@@ -56,7 +56,7 @@ def test_roundtrip_no_compress(tmp_c_file):
 def test_roundtrip_sample_c():
     original = open(SAMPLE_C, "rb").read()
     result = encode(SAMPLE_C)
-    recovered = decode(result["prime"], result["program_size_bytes"])
+    recovered = decode(result["prime"])  # self-contained: no size needed when compressed
     assert recovered == original
 
 
@@ -78,12 +78,25 @@ def test_prime_contains_compressed_bytes(tmp_c_file):
     assert embedded == zlib.compress(original)
 
 
+def test_is_prime_field(tmp_c_file):
+    result = encode(tmp_c_file)
+    assert "is_prime" not in result
+    assert isprime(result["prime"])
+
+
+def test_decimal_output(tmp_c_file):
+    result = encode(tmp_c_file)
+    assert result["decimal"] == str(result["prime"])
+    assert result["decimal"].isdigit()
+    assert int(result["decimal"]) == result["prime"]
+
+
 def test_encode_file_not_found():
     with pytest.raises(FileNotFoundError):
         encode("nonexistent.c")
 
 
-def test_decode_wrong_size_raises(tmp_c_file):
-    result = encode(tmp_c_file)
-    with pytest.raises(OverflowError):
-        decode(result["prime"], 1)
+def test_decode_no_compress_requires_size(tmp_c_file):
+    result = encode(tmp_c_file, compress=False)
+    with pytest.raises(ValueError, match="original_size is required"):
+        decode(result["prime"], compressed=False)

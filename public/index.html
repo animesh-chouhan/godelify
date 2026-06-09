@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>godelify</title>
+  <link rel="stylesheet" href="style.css" />
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/pako/2.1.0/pako.min.js"></script>
+</head>
+
+<body class="app">
+
+  <div class="site-header">
+    <h1>godelify</h1>
+    <a class="github-link" href="https://github.com/animesh-chouhan/godelify" target="_blank"
+      aria-label="view source on github">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" aria-hidden="true">
+        <path
+          d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.013 8.013 0 0016 8c0-4.42-3.58-8-8-8z" />
+      </svg>
+    </a>
+  </div>
+  <p class="tagline">encode any file or text as a prime number</p>
+
+  <div class="tabs">
+    <button class="tab active" onclick="switchTab('encode')">encode</button>
+    <button class="tab" onclick="switchTab('decode')">decode</button>
+  </div>
+
+  <div class="panels">
+
+    <!-- ── encode ── -->
+    <div id="panel-encode" class="panel active">
+
+      <div class="field">
+        <div class="source-header">
+          <label class="field-label">source</label>
+          <div class="source-tabs">
+            <button class="source-tab active" id="tab-text" onclick="switchSource('text')">text</button>
+            <button class="source-tab" id="tab-file" onclick="switchSource('file')">file</button>
+          </div>
+        </div>
+        <div id="source-file" style="display:none">
+          <label class="file-btn" for="file-input">choose file</label>
+          <input type="file" id="file-input" onchange="onFileChange(this)" />
+          <span class="file-name" id="file-name">no file chosen</span>
+        </div>
+        <div id="source-text">
+          <textarea id="text-input" rows="4" placeholder="type or paste text to encode…"></textarea>
+        </div>
+      </div>
+
+      <div class="toggle-row">
+        <button class="toggle on" id="compress-toggle" onclick="toggleCompress()"
+          aria-label="toggle compression"></button>
+        <span class="toggle-label">zlib compression</span>
+      </div>
+
+      <div class="btn-row">
+        <button class="btn" id="encode-btn" onclick="doEncode()">encode</button>
+        <button class="btn" id="cancel-btn" onclick="doCancel()" style="display:none">cancel</button>
+      </div>
+      <div class="status" id="encode-status"></div>
+
+      <div class="result" id="encode-result" style="display:none">
+        <div class="field">
+          <div class="output-header">
+            <label class="field-label">prime</label>
+            <button class="copy-btn" onclick="copyOutput('prime-out', this)">copy</button>
+          </div>
+          <div class="output-box" id="prime-out"></div>
+        </div>
+        <div class="meta" id="encode-meta"></div>
+      </div>
+
+    </div>
+
+    <!-- ── decode ── -->
+    <div id="panel-decode" class="panel">
+
+      <div class="field">
+        <label class="field-label">prime number</label>
+        <textarea id="prime-input" rows="4" placeholder="paste the prime…"></textarea>
+      </div>
+
+      <div class="btn-row">
+        <button class="btn" onclick="doDecode()">decode</button>
+      </div>
+      <div class="status" id="decode-status"></div>
+
+      <div class="result" id="decode-result" style="display:none">
+        <div class="field">
+          <div class="output-header">
+            <label class="field-label">recovered source</label>
+            <button class="copy-btn" onclick="copyOutput('source-out', this)">copy</button>
+          </div>
+          <div class="output-box" id="source-out"></div>
+        </div>
+        <div class="btn-row" style="margin-top:.75rem">
+          <button class="btn" onclick="doDownload()">download</button>
+        </div>
+      </div>
+
+    </div>
+
+  </div> <!-- .panels -->
+
+  <div class="about">
+    <p>
+      godelify encodes any file as a prime number using
+      <a href="https://en.wikipedia.org/wiki/G%C3%B6del_numbering" target="_blank">Gödel numbering</a>.
+      The file is compressed, treated as a large integer, and a small suffix is appended
+      until the result is prime. Strip the suffix, decompress, and you recover the original file exactly.
+    </p>
+    <p>
+      Inspired by Phil Carmody, who in 2001 encoded the banned DeCSS DVD-decryption program as a
+      1401-digit prime. Possessing a number cannot be illegal.
+    </p>
+    <p><a class="tagline-link" href="about.html">how it works →</a></p>
+  </div>
+  <footer>
+    <p class="byline">made with <span class="heart">♥</span> by <a href="https://animeshchouhan.com"
+        target="_blank">Animesh Chouhan</a></p>
+  </footer>
+
+  <script src="core.js"></script>
+  <script src="godelify.js"></script>
+</body>
+
+</html>

@@ -1,5 +1,5 @@
 /*
- * decss.c — RC4 stream cipher with CRC-32 integrity check
+ * rc4.c — RC4 stream cipher with CRC-32 integrity check
  *
  * Historical context
  * ------------------
@@ -14,7 +14,7 @@
  *
  * godelify generalises that idea. Run:
  *
- *   godelify encode decss.c
+ *   godelify encode rc4.c
  *
  * and this file becomes a prime. The prime IS this program.
  *

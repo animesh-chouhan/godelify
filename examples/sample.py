@@ -5,10 +5,12 @@ import sys
 
 sys.path.insert(0, os.path.join(os.path.dirname(__file__), ".."))
 
+from sympy import isprime
+
 from godelify import encode, decode
 from godelify.core import prime_rank, prime_rank_estimate
 
-SAMPLE_C = os.path.join(os.path.dirname(__file__), "complex.c")
+SAMPLE_C = os.path.join(os.path.dirname(__file__), "factorial.c")
 
 
 def main():
@@ -19,10 +21,11 @@ def main():
     print(f"Source binary: {original_binary}\n")
 
     result = encode(SAMPLE_C)
-    print(f"Prime number: {result['prime']}\n")
-    print(f"Prime binary: {result['binary']}\n")
+    print(f"Prime (decimal, {len(result['decimal'])} digits):\n{result['decimal']}\n")
+    print(f"Prime (binary):\n{result['binary']}\n")
     print(f"Metadata : {result['metadata']}")
     print(f"Size     : {result['program_size_bytes']} bytes")
+    print(f"Is prime : {isprime(result['prime'])}")
 
     try:
         rank = prime_rank(result["prime"])
@@ -32,7 +35,7 @@ def main():
         print(f"Rank     : {estimate}th prime (estimated via prime number theorem)")
     print()
 
-    recovered = decode(result["prime"], result["program_size_bytes"])
+    recovered = decode(result["prime"])
 
     if recovered == original_bytes:
         print("Roundtrip OK — recovered bytes match original exactly.")
