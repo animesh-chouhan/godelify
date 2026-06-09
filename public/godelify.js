@@ -9,7 +9,7 @@ function switchTab(name) {
 }
 
 // ── state ────────────────────────────────────────────────────────────────────
-const FILE_SIZE_LIMIT = 10 * 1024; // 10 KB
+const FILE_SIZE_LIMIT = 10 * 1024; // 50 KB
 
 let fileBytes = null;
 let encodeMode = 'text';

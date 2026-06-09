@@ -90,8 +90,9 @@ godelify decode <prime> -o recovered.c
 - **Self-contained prime (compressed path)** — when compression is on, the prime carries its own size: `(prime >> 32).bit_length()` gives the exact compressed byte count. `decode()` does not need `original_size` in this mode.
 - **`byteorder="big"`** — consistent across encode and decode. Do not change one without the other.
 - **`prime_rank` is limited** — `sympy.primepi` is only feasible up to ~10^25. Real encoded primes are ~10^500+. Use `prime_rank_estimate()` for approximate rank via the prime number theorem.
-- **Web Worker for encode** — the prime search blocks the CPU for seconds. `godelify.js` spawns `worker.js` so the main thread stays responsive. The worker imports pako via `importScripts`. Max file size is capped at 50 KB in the web UI.
+- **Web Worker for encode** — the prime search blocks the CPU for seconds. `godelify.js` spawns `worker.js` so the main thread stays responsive. The worker imports pako via `importScripts`. Max file size is capped at 10 KB in the web UI (`FILE_SIZE_LIMIT` in `godelify.js`).
 - **Miller-Rabin in JS** — 13 fixed witnesses `[2,3,5,7,11,13,17,19,23,29,31,37,41]` are deterministic for n < 3.3×10²⁴; probabilistic (error < 4⁻¹³) beyond that.
+- **Sieve prefilter in worker** — before calling Miller-Rabin, each odd candidate is checked for divisibility by all primes up to 7000 using plain Number arithmetic (no BigInt). Filters ~88% of candidates, reducing expensive modpow calls by ~8×. `base | m === base + m` for m < 2³² because `base = N << 32` has its lower 32 bits clear.
 
 ---
 

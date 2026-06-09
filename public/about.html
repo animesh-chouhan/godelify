@@ -1,27 +1,89 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>how it works — godelify</title>
   <link rel="stylesheet" href="style.css" />
   <style>
-    .back { display: inline-block; color: var(--cream-dim); text-decoration: none; font-size: .95rem; letter-spacing: .08em; margin-bottom: 2rem; }
-    .back:hover { color: var(--cream); }
+    .back {
+      display: inline-block;
+      color: var(--cream-dim);
+      text-decoration: none;
+      font-size: .95rem;
+      letter-spacing: .08em;
+      margin-bottom: 2rem;
+    }
 
-    .about-body h2 { color: var(--accent); font-weight: normal; font-size: 1.3rem; letter-spacing: .15em; margin: 2.5rem 0 .9rem; }
-    .about-body h3 { color: var(--cream); font-weight: normal; font-size: 1.05rem; letter-spacing: .1em; margin: 1.75rem 0 .6rem; }
+    .back:hover {
+      color: var(--cream);
+    }
 
-    .about-body p { color: var(--cream-dim); line-height: 1.85; margin-bottom: .9rem; }
-    .about-body p a { color: var(--accent); text-decoration: none; border-bottom: 0.5px solid var(--accent); }
-    .about-body p a:hover { opacity: .75; }
+    .about-body h2 {
+      color: var(--accent);
+      font-weight: normal;
+      font-size: 1.3rem;
+      letter-spacing: .15em;
+      margin: 2.5rem 0 .9rem;
+    }
 
-    .about-body strong { color: var(--cream); font-weight: normal; }
+    .about-body h3 {
+      color: var(--cream);
+      font-weight: normal;
+      font-size: 1.05rem;
+      letter-spacing: .1em;
+      margin: 1.75rem 0 .6rem;
+    }
 
-    .step-list { list-style: none; padding: 0; margin-bottom: .9rem; counter-reset: steps; }
-    .step-list li { counter-increment: steps; color: var(--cream-dim); line-height: 1.85; padding-left: 2rem; position: relative; margin-bottom: .4rem; }
-    .step-list li::before { content: counter(steps) "."; position: absolute; left: 0; color: var(--accent); }
-    .step-list li strong { color: var(--cream); font-weight: normal; }
+    .about-body p {
+      color: var(--cream-dim);
+      line-height: 1.85;
+      margin-bottom: .9rem;
+    }
+
+    .about-body p a {
+      color: var(--accent);
+      text-decoration: none;
+      border-bottom: 0.5px solid var(--accent);
+    }
+
+    .about-body p a:hover {
+      opacity: .75;
+    }
+
+    .about-body strong {
+      color: var(--cream);
+      font-weight: normal;
+    }
+
+    .step-list {
+      list-style: none;
+      padding: 0;
+      margin-bottom: .9rem;
+      counter-reset: steps;
+    }
+
+    .step-list li {
+      counter-increment: steps;
+      color: var(--cream-dim);
+      line-height: 1.85;
+      padding-left: 2rem;
+      position: relative;
+      margin-bottom: .4rem;
+    }
+
+    .step-list li::before {
+      content: counter(steps) ".";
+      position: absolute;
+      left: 0;
+      color: var(--accent);
+    }
+
+    .step-list li strong {
+      color: var(--cream);
+      font-weight: normal;
+    }
 
     pre {
       background: var(--surface);
@@ -36,10 +98,22 @@
       padding: 1rem 1.2rem;
     }
 
-    .kw  { color: var(--accent); }
-    .cm  { color: #5a5040; font-style: italic; }
-    .lit { color: #a0c080; }
-    .fn  { color: var(--cream); }
+    .kw {
+      color: var(--accent);
+    }
+
+    .cm {
+      color: #5a5040;
+      font-style: italic;
+    }
+
+    .lit {
+      color: #a0c080;
+    }
+
+    .fn {
+      color: var(--cream);
+    }
 
     .callout {
       background: var(--surface);
@@ -51,66 +125,73 @@
       padding: .85rem 1.1rem;
     }
 
-    hr { border: none; border-top: 1px solid var(--border); margin: 2.5rem 0; }
+    hr {
+      border: none;
+      border-top: 1px solid var(--border);
+      margin: 2.5rem 0;
+    }
   </style>
 </head>
+
 <body>
 
-<a class="back" href="index.html">← back to godelify</a>
+  <a class="back" href="index.html">← back to godelify</a>
 
-<h1>how it works</h1>
-<p class="tagline">the math and code behind encoding any file as a prime number</p>
+  <h1>how it works</h1>
+  <p class="tagline">the math and code behind encoding any file as a prime number</p>
 
-<div class="about-body">
+  <div class="about-body">
 
-<h2>background</h2>
+    <h2>background</h2>
 
-<p>
-  In 1931, Kurt Gödel showed that any formal statement, a proof, a theorem, a program, can be
-  mapped to a unique natural number. Treat the symbols as digits in some base and read the whole
-  thing as one big integer.
-  <a href="https://en.wikipedia.org/wiki/G%C3%B6del_numbering" target="_blank">Gödel numbering</a>
-  was invented to reason about mathematical logic, but the idea works on any sequence of bytes.
-</p>
+    <p>
+      In 1931, Kurt Gödel showed that any formal statement, a proof, a theorem, a program, can be
+      mapped to a unique natural number. Treat the symbols as digits in some base and read the whole
+      thing as one big integer.
+      <a href="https://en.wikipedia.org/wiki/G%C3%B6del_numbering" target="_blank">Gödel numbering</a>
+      was invented to reason about mathematical logic, but the idea works on any sequence of bytes.
+    </p>
 
-<p>
-  In 2001, <strong>Phil Carmody</strong> encoded the banned DeCSS DVD-decryption program as a
-  1401-digit prime. His point was simple: you can't make a number illegal. He chose a prime because
-  numbers feel more incontrovertibly mathematical than software, and a prime more so than a plain integer.
-</p>
+    <p>
+      In 2001, <strong>Phil Carmody</strong> encoded the banned <a href="https://en.wikipedia.org/wiki/DeCSS"
+        target="_blank">DeCSS</a> DVD-decryption program as a
+      1401-digit prime. His point was simple: you can't make a number illegal. He chose a prime because
+      numbers feel more incontrovertibly mathematical than software, and a prime more so than a plain integer.
+    </p>
 
-<p>
-  <strong>Seth Schoen</strong> took it further. He wrote a 456-line haiku sequence whose syllable
-  counts, read as digits, produce a number that is both prime and the DeCSS source code. Then he
-  <a href="https://archive.org/details/CSS_Descrambler_Source_Code_set_to_music" target="_blank">set it to music</a>,
-  with each digit mapped to a note. The same data in three forms.
-</p>
+    <p>
+      <strong>Seth Schoen</strong> took it further. He wrote a 456-line haiku sequence whose syllable
+      counts, read as digits, produce a number that is both prime and the DeCSS source code. Then he
+      <a href="https://archive.org/details/CSS_Descrambler_Source_Code_set_to_music" target="_blank">set it to
+        music</a>,
+      with each digit mapped to a note. The same data in three forms.
+    </p>
 
-<p>
-  godelify lets you do this with anything. Drop in a photo, a text file, a binary. You get back
-  a prime that encodes it exactly and can be decoded without loss.
-</p>
+    <p>
+      godelify lets you do this with anything. Drop in a photo, a text file, a binary. You get back
+      a prime that encodes it exactly and can be decoded without loss.
+    </p>
 
-<hr>
+    <hr>
 
-<h2>encoding — step by step</h2>
+    <h2>encoding — step by step</h2>
 
-<ol class="step-list">
-  <li><strong>Read the input</strong> as raw bytes, either file contents or UTF-8 text.</li>
-  <li><strong>Compress</strong> with zlib. This shrinks the data and also ensures the first byte
-      is never zero (zlib headers start with <code>0x78</code>), so no leading bytes disappear
-      when converting to an integer.</li>
-  <li><strong>Read the bytes as a big-endian integer</strong> N.</li>
-  <li><strong>Shift left by 32 bits:</strong> <code>base = N &lt;&lt; 32</code>.
-      The bottom 32 bits are now free to use as a suffix.</li>
-  <li><strong>Find a prime</strong> by trying <code>candidate = base | m</code>
-      for m = 0, 1, 2, ... The suffix m is the <em>metadata</em>.
-      The prime number theorem says you'll find one within roughly ln(candidate) tries,
-      usually a few tens of thousands for typical files.</li>
-  <li><strong>Done.</strong> The metadata lives in the lower 32 bits and gets stripped during decoding.</li>
-</ol>
+    <ol class="step-list">
+      <li><strong>Read the input</strong> as raw bytes, either file contents or UTF-8 text.</li>
+      <li><strong>Compress</strong> with zlib. This shrinks the data and also ensures the first byte
+        is never zero (zlib headers start with <code>0x78</code>), so no leading bytes disappear
+        when converting to an integer.</li>
+      <li><strong>Read the bytes as a big-endian integer</strong> N.</li>
+      <li><strong>Shift left by 32 bits:</strong> <code>base = N &lt;&lt; 32</code>.
+        The bottom 32 bits are now free to use as a suffix.</li>
+      <li><strong>Find a prime</strong> by trying <code>candidate = base | m</code>
+        for m = 0, 1, 2, ... The suffix m is the <em>metadata</em>.
+        The prime number theorem says you'll find one within roughly ln(candidate) tries,
+        usually a few tens of thousands for typical files.</li>
+      <li><strong>Done.</strong> The metadata lives in the lower 32 bits and gets stripped during decoding.</li>
+    </ol>
 
-<pre><span class="cm">// worker.js — encoding loop</span>
+    <pre><span class="cm">// worker.js — encoding loop</span>
 <span class="kw">const</span> payload = compressOn ? pako.deflate(bytes) : bytes;
 <span class="kw">const</span> base    = <span class="fn">bytesToBigInt</span>(payload) &lt;&lt; <span class="lit">32n</span>;
 
@@ -119,14 +200,14 @@
   <span class="kw">if</span> (<span class="fn">isPrime</span>(candidate)) { prime = candidate; <span class="kw">break</span>; }
 }</pre>
 
-<h3>bytes ↔ BigInt</h3>
+    <h3>bytes ↔ BigInt</h3>
 
-<p>
-  We convert through a hex string and let the browser's native BigInt parser do the heavy lifting.
-  Big-endian just means the most significant byte comes first, same as how you'd read a number.
-</p>
+    <p>
+      We convert through a hex string and let the browser's native BigInt parser do the heavy lifting.
+      Big-endian just means the most significant byte comes first, same as how you'd read a number.
+    </p>
 
-<pre><span class="kw">function</span> <span class="fn">bytesToBigInt</span>(bytes) {
+    <pre><span class="kw">function</span> <span class="fn">bytesToBigInt</span>(bytes) {
   <span class="kw">let</span> hex = <span class="lit">''</span>;
   <span class="kw">for</span> (<span class="kw">const</span> b <span class="kw">of</span> bytes) hex += b.<span class="fn">toString</span>(<span class="lit">16</span>).<span class="fn">padStart</span>(<span class="lit">2</span>, <span class="lit">'0'</span>);
   <span class="kw">return</span> hex ? <span class="fn">BigInt</span>(<span class="lit">'0x'</span> + hex) : <span class="lit">0n</span>;
@@ -141,27 +222,28 @@
   <span class="kw">return</span> out;
 }</pre>
 
-<hr>
+    <hr>
 
-<h2>primality testing</h2>
+    <h2>primality testing</h2>
 
-<p>
-  Trial division won't work on a thousand-digit number. You'd run out of time long before finding
-  a factor. Instead godelify uses the
-  <a href="https://en.wikipedia.org/wiki/Miller%E2%80%93Rabin_primality_test" target="_blank">Miller-Rabin primality test</a>,
-  which can confidently declare a number prime in a handful of modular exponentiations.
-</p>
+    <p>
+      Trial division won't work on a thousand-digit number. You'd run out of time long before finding
+      a factor. Instead godelify uses the
+      <a href="https://en.wikipedia.org/wiki/Miller%E2%80%93Rabin_primality_test" target="_blank">Miller-Rabin primality
+        test</a>,
+      which can confidently declare a number prime in a handful of modular exponentiations.
+    </p>
 
-<h3>the algorithm</h3>
+    <h3>the algorithm</h3>
 
-<p>
-  Factor n - 1 as 2<sup>r</sup> · d with d odd. Pick a witness a and compute
-  <code>x = a<sup>d</sup> mod n</code>. If x is 1 or n - 1, the number passes for this witness.
-  Otherwise keep squaring x. If you hit n - 1 before squaring r - 1 times, it passes.
-  If you get through all of it without hitting n - 1, the number is definitely composite.
-</p>
+    <p>
+      Factor n - 1 as 2<sup>r</sup> · d with d odd. Pick a witness a and compute
+      <code>x = a<sup>d</sup> mod n</code>. If x is 1 or n - 1, the number passes for this witness.
+      Otherwise keep squaring x. If you hit n - 1 before squaring r - 1 times, it passes.
+      If you get through all of it without hitting n - 1, the number is definitely composite.
+    </p>
 
-<pre><span class="kw">function</span> <span class="fn">modpow</span>(base, exp, mod) {
+    <pre><span class="kw">function</span> <span class="fn">modpow</span>(base, exp, mod) {
   <span class="kw">let</span> r = <span class="lit">1n</span>;
   base %= mod;
   <span class="kw">while</span> (exp > <span class="lit">0n</span>) {
@@ -186,16 +268,16 @@
   <span class="kw">return false</span>;
 }</pre>
 
-<h3>deterministic witnesses</h3>
+    <h3>deterministic witnesses</h3>
 
-<p>
-  One witness isn't enough. Some composites are good at passing the test for specific values of a,
-  so we run it with 13 fixed witnesses: <code>[2, 3, 5, 7, 11, 13, 17, 19, 23, 29, 31, 37, 41]</code>.
-  That set covers all integers up to about 3.3 × 10<sup>24</sup> with certainty. For larger numbers
-  the chance of a false positive is less than 4<sup>-13</sup>, roughly 1 in 67 million.
-</p>
+    <p>
+      One witness isn't enough. Some composites are good at passing the test for specific values of a,
+      so we run it with 13 fixed witnesses: <code>[2, 3, 5, 7, 11, 13, 17, 19, 23, 29, 31, 37, 41]</code>.
+      That set covers all integers up to about 3.3 × 10<sup>24</sup> with certainty. For larger numbers
+      the chance of a false positive is less than 4<sup>-13</sup>, roughly 1 in 67 million.
+    </p>
 
-<pre><span class="kw">function</span> <span class="fn">isPrime</span>(n) {
+    <pre><span class="kw">function</span> <span class="fn">isPrime</span>(n) {
   <span class="kw">if</span> (n &lt; <span class="lit">2n</span>) <span class="kw">return false</span>;
   <span class="kw">for</span> (<span class="kw">const</span> s <span class="kw">of</span> SMALL) {          <span class="cm">// trial-divide by 2,3,5,…,41</span>
     <span class="kw">if</span> (n === s) <span class="kw">return true</span>;
@@ -204,47 +286,44 @@
   <span class="kw">return</span> WITNESSES.<span class="fn">every</span>(a => <span class="fn">millerRabinRound</span>(n, a));
 }</pre>
 
-<hr>
+    <hr>
 
-<h2>decoding</h2>
+    <h2>decoding</h2>
 
-<p>
-  Right-shift the prime by 32 to drop the suffix, convert back to bytes, decompress. Nothing
-  extra needs to be stored. The zlib header in the data itself tells the decompressor where things end.
-</p>
+    <p>
+      Right-shift the prime by 32 to drop the suffix, convert back to bytes, decompress. Nothing
+      extra needs to be stored. The zlib header in the data itself tells the decompressor where things end.
+    </p>
 
-<pre><span class="cm">// godelify.js — decode path</span>
+    <pre><span class="cm">// godelify.js — decode path</span>
 <span class="kw">const</span> prime    = <span class="fn">BigInt</span>(inputString);
 <span class="kw">const</span> shifted  = prime >> <span class="lit">32n</span>;          <span class="cm">// strip metadata suffix</span>
 <span class="kw">const</span> bytes    = <span class="fn">bigIntToBytes</span>(shifted); <span class="cm">// BigInt → Uint8Array</span>
 <span class="kw">const</span> original = pako.<span class="fn">inflate</span>(bytes);   <span class="cm">// zlib decompress</span></pre>
 
-<div class="callout">
-  zlib output always starts with <code>0x78 0x9C</code>. That non-zero leading byte is what makes
-  the scheme self-contained: converting the bytes to an integer doesn't silently drop any leading
-  information. Raw uncompressed data has no such guarantee, which is why compression is on by default.
-</div>
+    <div class="callout">
+      zlib output always starts with <code>0x78 0x9C</code>. That non-zero leading byte is what makes
+      the scheme self-contained: converting the bytes to an integer doesn't silently drop any leading
+      information. Raw uncompressed data has no such guarantee, which is why compression is on by default.
+    </div>
 
-<hr>
+    <hr>
 
-<h2>why a prime?</h2>
+    <h2>why a prime?</h2>
 
-<p>
-  Any integer would technically work. You could skip the prime search and still recover the file
-  perfectly. The primality is the point. Phil Carmody chose a prime because it feels more
-  incontrovertibly mathematical than software. Hard to argue a prime number is contraband.
-</p>
+    <p>
+      Any integer would technically work. You could skip the prime search and still recover the file
+      perfectly. The primality is the point. Phil Carmody chose a prime because it feels more
+      incontrovertibly mathematical than software. Hard to argue a prime number is contraband.
+    </p>
+  </div>
 
-<p>
-  His prime encodes a program. Seth Schoen's encodes a poem that encodes a program. Yours encodes
-  whatever you put in.
-</p>
-
-</div>
-
-<footer>
-  <p class="byline">made with <span class="heart">♥</span> by <a href="https://animeshchouhan.com" target="_blank">Animesh Chouhan</a> &nbsp;·&nbsp; <a href="https://github.com/animesh-chouhan/godelify" target="_blank">github</a></p>
-</footer>
+  <footer>
+    <p class="byline">made with <span class="heart">♥</span> by <a href="https://animeshchouhan.com"
+        target="_blank">Animesh Chouhan</a> &nbsp;·&nbsp; <a href="https://github.com/animesh-chouhan/godelify"
+        target="_blank">github</a></p>
+  </footer>
 
 </body>
+
 </html>
