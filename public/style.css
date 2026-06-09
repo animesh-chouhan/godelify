@@ -199,6 +199,16 @@ input[type="file"] { display: none; }
   vertical-align: middle;
 }
 
+.sample-hint {
+  display: block;
+  font-size: .85rem;
+  color: var(--cream-dim);
+  margin-top: .5rem;
+}
+
+.sample-link { color: var(--accent); text-decoration: none; border-bottom: 0.5px solid var(--accent); }
+.sample-link:hover { opacity: .75; }
+
 
 textarea {
   width: 100%;

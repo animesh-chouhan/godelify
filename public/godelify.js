@@ -164,6 +164,24 @@ function setStatus(panel, msg, isError = false) {
   el.className = 'status' + (isError ? ' error' : '');
 }
 
+const SAMPLE_C =
+`#include <stdio.h>
+
+int main() {
+    printf("Hello, World!\\n");
+    return 0;
+}
+`;
+
+function downloadSample(e) {
+  e.preventDefault();
+  const a = Object.assign(document.createElement('a'), {
+    href: URL.createObjectURL(new Blob([SAMPLE_C], { type: 'text/plain' })),
+    download: 'hello_world.c',
+  });
+  a.click();
+}
+
 function copyOutput(id, btn) {
   const text = document.getElementById(id).textContent;
   navigator.clipboard.writeText(text).then(() => {
